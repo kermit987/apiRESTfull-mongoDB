@@ -21,6 +21,7 @@
     "randomstring": "^1.1.5"
   },
   "devDependencies": {
+    "eslint": "^5.11.0",
     "eslint-config-mongodb-js": "^3.0.1",
     "eslint-plugin-mongodb": "^1.0.0",
     "mocha": "^5.0.1"
@@ -30,5 +31,6 @@
     "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "lint": "eslint"
 }

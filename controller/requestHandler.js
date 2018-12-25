@@ -1,31 +1,29 @@
-var express = require('express')
-var app = express()
-var connection = require('../model/model.js')
-var path = require('path');
-var bcrypt = require('bcrypt');
-var randomString = require('randomstring');
-var jwt = require('jsonwebtoken');
-var saltRounds = bcrypt.genSaltSync(10);
+const express = require('express')
+const app = express()
+const connection = require('../model/model.js')
+const path = require('path');
+const bcrypt = require('bcrypt');
+const randomString = require('randomstring');
+const jwt = require('jsonwebtoken');
+const saltRounds = bcrypt.genSaltSync(10);
 
-rootGet = function(req, res) {
+rootGet = (req, res) => {
   return res.status(200).send("INSIDE THE /");
 }
 
-subscriptionGet = function(req, res) {
+subscriptionGet = (req, res) => {
   return res.status(200).sendFile(path.join(__dirname , '../views/', 'subscription.html'));
 }
 
-subscriptionPost = async function(req, res) {
-  var name = req.body.name;
-  var lastname = req.body.lastname;
-  var typeblood = req.body.typeblood;
-  var username = req.body.username;
-  var email = req.body.email;
-  var password = req.body.password;
-  var confirmationPassword = req.body.confirmationPassword;
-
+subscriptionPost = async (req, res) => {
+  const {
+    body: {
+      name, lastname, typeblood, username, email, password, confirmationPassword
+    }
+  } = req
   try {
-    let result = await getUser(username, email)
+
+    const result = await getUser(username, email)
     if (result.length == 0) {
       if (password != confirmationPassword)
         return res.status(401).sendFile(path.join(__dirname, '../views/', 'wrongPassword.html'));
@@ -52,8 +50,7 @@ loginPost = async function(req, res) {
   var password = req.body.password;
 
   try {
-    let result = await getUserInformation(username)
-    console.log("Valeur de result ", result)
+    const result = await getUserInformation(username)
     if (result == null)
     // if (result.length == 0)
       return res.status(403).sendFile(path.join(__dirname, '../views/', 'failureLogin.html'))
