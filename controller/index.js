@@ -9,7 +9,7 @@ const {
   getUserInformation,
   getUserUsingEmail,
   updateUsingEmail
-} = require('../model/model.js')
+} = require('../model/')
 
 const rootGet = (req, res) => {
   return res.status(200).send('INSIDE THE /')

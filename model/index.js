@@ -8,10 +8,6 @@ db.on('error', () => {
   throw new Error('Connection to database failed')
 })
 
-// db.once('open', () => {
-//   console.log('[MONGOOSE] ... Connection to database success !')
-// })
-
 const getUser = function(username, email) {
   return new Promise((resolve, reject) => {
     user.find({

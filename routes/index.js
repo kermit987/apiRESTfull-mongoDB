@@ -9,7 +9,7 @@ const { rootGet,
   forgetPasswordPost,
   checkTokenValidity,
   apiAuthenticatedGet 
-} = require('../controller/requestHandler.js')
+} = require('../controller/')
 
 
 router.use((request, response, next) => {
