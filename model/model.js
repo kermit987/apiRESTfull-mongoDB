@@ -1,20 +1,23 @@
-var mongoose = require('mongoose')
-var user = require('./userSchema.js')
+const mongoose = require('mongoose')
+const user = require('./userSchema.js')
 
 mongoose.connect('mongodb://forInterview:poss3id0n@ds153003.mlab.com:53003/apirestfull')
 
-db = mongoose.connection
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', () => {
-  console.log('[MONGOOSE] ... Connection to database success !')
+const db = mongoose.connection
+db.on('error', () => {
+  throw new Error('Connection to database failed')
 })
 
-getUser = function(username, email) {
+// db.once('open', () => {
+//   console.log('[MONGOOSE] ... Connection to database success !')
+// })
+
+const getUser = function(username, email) {
   return new Promise((resolve, reject) => {
     user.find({
       $or:
       [{email: email},
-      {username: username}]
+        {username: username}]
     }, (err, result) => {
       if (err)
         reject(err)
@@ -23,9 +26,9 @@ getUser = function(username, email) {
   })
 }
 
-createUser = function(name, lastname, typeblood, username, email, password) {
+const createUser = function(name, lastname, typeblood, username, email, password) {
   return new Promise((resolve, reject) => {
-    var newUser = new user({
+    const newUser = new user({
       name: name,
       lastname: lastname,
       email: email,
@@ -42,8 +45,7 @@ createUser = function(name, lastname, typeblood, username, email, password) {
   })
 }
 
-getUserInformation = function(username) {
-  console.log("Value of username ", username)
+const getUserInformation = function(username) {
   return new Promise((resolve, reject) => {
     user.findOne(
       {username: username},
@@ -57,21 +59,21 @@ getUserInformation = function(username) {
   })
 }
 
-getUserUsingEmail = function(email) {
+const getUserUsingEmail = function(email) {
   return new Promise((resolve, reject) => {
     user.findOne(
       {email: email},
       'email',
       (err, result) => {
         if (err)
-          reject(Err)
+          reject(err)
         resolve(result)
       }
     )
   })
 }
 
-updateUsingEmail = function(email, password) {
+const updateUsingEmail = function(email, password) {
   return new Promise((resolve, reject) => {
     user.findOneAndUpdate(
       {email: email},
@@ -85,8 +87,10 @@ updateUsingEmail = function(email, password) {
   })
 }
 
-module.exports = getUser
-module.exports = createUser
-module.exports = getUserInformation
-module.exports = getUserUsingEmail
-module.exports = updateUsingEmail
+module.exports = {
+  getUser,
+  createUser,
+  getUserInformation,
+  getUserUsingEmail,
+  updateUsingEmail
+}

@@ -1,15 +1,15 @@
-var express = require('express');
-var app = express();
-var port = process.env.PORT || 8888;
-var bodyParser = require('body-parser')
-var routes = require('./routes/routes.js')
+const express = require('express')
+const app = express()
+const port = process.env.PORT || 8888
+const bodyParser = require('body-parser')
+const { router } = require('./routes/routes.js')
 
 app.use(bodyParser.urlencoded({extended: true}))
-app.use('/', routes);
+app.use('/', router)
 
 
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
+  require('dotenv').load()
 }
 
 app.listen(port, () => {

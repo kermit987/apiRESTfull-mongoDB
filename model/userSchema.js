@@ -1,6 +1,6 @@
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
-var userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: String,
   lastname: String,
   email: String,
@@ -8,9 +8,5 @@ var userSchema = new mongoose.Schema({
   typeblood: String,
   password: String
 })
-
-hello = function() {
-  console.log("Hello World!")
-}
 
 module.exports = mongoose.model('users', userSchema)
